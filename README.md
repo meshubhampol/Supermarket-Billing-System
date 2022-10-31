@@ -1,15 +1,25 @@
 # Supermarket Billing System
 
 
-## Overview
-### About the project :
+## Project Overview
+
 The system includes a point of sale system also it manages Sellers, Admins and store inventory management.
 * Admin can add Sellers, Categories and Products under categories
 * Seller can add products to Cart as per Customer's requests
 * A Bill is printed out as PDF
 * A Database is maintained for all Sellers, Categories and Products
 
+## Tools
+
+### Java
+### Java Swing
+### Java Awt
+### Apache Derby
+### SQL
+### Netbeans IDE
+
 ## Screenshots
+
 ### Splash
 ![image](https://user-images.githubusercontent.com/89059194/143206110-abf10f19-9d97-4c04-971f-6f47f4508403.png)
 
