@@ -2,7 +2,7 @@
 
 
 ## Project Overview
-The system includes a point of sale system also it manages Sellers, Admins and store inventory management.
+The system includes a point of sale system which deals with the Sellers, Admins and store inventory management.
 * Admin can add Sellers, Categories and Products under categories
 * Seller can add products to Cart as per Customer's requests
 * A Bill is printed out as PDF
