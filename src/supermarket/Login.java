@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.derby.jdbc.EmbeddedDriver;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -12,7 +13,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,12 +26,12 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Uid = new javax.swing.JTextField();
-        RoleCb = new javax.swing.JComboBox<String>();
+        RoleCb = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        forgot = new javax.swing.JButton();
+        login = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -46,8 +47,8 @@ public class Login extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Nice service");
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("In Quality");
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
@@ -56,39 +57,43 @@ public class Login extends javax.swing.JFrame {
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Every product ");
+        jLabel11.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel11.setText("We Believe");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(72, 72, 72))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)))
                 .addComponent(jLabel11)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,7 +111,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(Uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 280, 40));
 
         RoleCb.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        RoleCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin", "Seller" }));
+        RoleCb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Seller" }));
         RoleCb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RoleCbActionPerformed(evt);
@@ -119,46 +124,44 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 120, 50));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
-        jLabel4.setText("ID");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 45, 48));
+        jLabel4.setText("USERNAME");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 48));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel5.setText("SELECT ROLE");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 243, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("clear");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        forgot.setBackground(new java.awt.Color(0, 0, 0));
+        forgot.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        forgot.setForeground(new java.awt.Color(255, 255, 255));
+        forgot.setText("Forgot Password");
+        forgot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                forgotMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                forgotMouseEntered(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 153, 52));
+        jPanel2.add(forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 510, 240, 52));
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("LOGIN");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        login.setBackground(new java.awt.Color(0, 0, 0));
+        login.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        login.setForeground(new java.awt.Color(255, 255, 255));
+        login.setText("LOGIN");
+        login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                loginMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                loginActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 162, 52));
+        jPanel2.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 162, 52));
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 286, -1, -1));
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 160, -1, -1));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\sandy\\Dropbox\\My PC (DESKTOP-5JAIR8G)\\Downloads\\supermarket (2)\\supermarket\\src\\supermarket\\login final.png")); // NOI18N
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 200, 150));
 
         password.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +186,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -214,62 +217,58 @@ public class Login extends javax.swing.JFrame {
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel13MouseClicked
-Connection Con = null;
-Statement St = null;
-ResultSet Rs = null;
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       
-        if(RoleCb.getSelectedItem().toString().equals("Seller"))
-       {
-        String Query = "Select * from APP.SELLERTBL where SELLNAME='"+Uid.getText()+"'and SELPASS='"+password.getText()+"'";
-       try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        Rs = St.executeQuery(Query);
-        if(Rs.next()){
-            new Selling().setVisible(true);
-            this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Wrong Seller Id or Password");
-        }
-       }catch(SQLException ex)
-       {
-           ex.printStackTrace();
-       }
-       }else
-       {
-             String Query = "Select * from APP.ADMINTBL where ADMINNAME='"+Uid.getText()+"'and ADMINPASS='"+password.getText()+"'";
-       try{
-        Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        Rs = St.executeQuery(Query);
-        if(Rs.next()){
-            new Product().setVisible(true);
-            this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Wrong Admin Id or Password");
-        }
-       }catch(SQLException ex)
-       {
-           ex.printStackTrace();
-       }  
-               }
-    }//GEN-LAST:event_jButton2MouseClicked
+    Connection Con = null;
+    Statement St = null;
+    ResultSet Rs = null;
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (RoleCb.getSelectedItem().toString().equals("Seller")) {
+            String Query = "Select * from APP.SELLERTBL where SELLNAME='" + Uid.getText() + "'and SELLPASS='" + password.getText() + "'";
+            try {
+                DriverManager.registerDriver(new EmbeddedDriver());
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                St = Con.createStatement();
+                Rs = St.executeQuery(Query);
+                if (Rs.next()) {
+                    new Selling().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Wrong Seller Id or Password");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            String Query = "Select * from APP.ADMINTBL where ADMINNAME='" + Uid.getText() + "'and ADMINPASS='" + password.getText() + "'";
+            try {
+                DriverManager.registerDriver(new EmbeddedDriver());
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                St = Con.createStatement();
+                Rs = St.executeQuery(Query);
+                if (Rs.next()) {
+                    new Product().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Wrong Admin Id or Password");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_loginMouseClicked
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_loginActionPerformed
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+    private void forgotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseEntered
+    }//GEN-LAST:event_forgotMouseEntered
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Uid.setText("");
-        password.setText("");
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void forgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotMouseClicked
+        new Reset().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_forgotMouseClicked
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
@@ -286,8 +285,7 @@ ResultSet Rs = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> RoleCb;
     private javax.swing.JTextField Uid;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton forgot;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -302,6 +300,7 @@ ResultSet Rs = null;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }

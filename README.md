@@ -8,12 +8,12 @@ The system includes a point of sale system which deals with the Sellers, Admins 
 * A Bill is printed out as PDF
 * A Database is maintained for all Sellers, Categories and Products
 
-## Technologies Used
+## Tools
 ### Java
-### SQL
 ### Java Swing
 ### Java Awt
 ### Apache Derby
+### SQL
 ### Netbeans IDE
 
 

@@ -1,5 +1,13 @@
 package supermarket;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.derby.jdbc.EmbeddedDriver;
 
 public class Splash extends javax.swing.JFrame {
 
@@ -52,23 +60,42 @@ public class Splash extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
     public static void main(String args[]) {
-        Splash Mysplash = new Splash();
-        Mysplash.setVisible(true);
-        try{
-            for(int i=0;i<=100;i++)
-            {
-                Thread.sleep(40);
-                Mysplash.Myprogress.setValue(i);
-                Mysplash.Precentage.setText(Integer.toString(i)+"%");
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            DriverManager.registerDriver(new EmbeddedDriver());
+            con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            st=con.createStatement();
+            String Query = "Select * from APP.ADMINTBL";
+            rs= st.executeQuery(Query);
+            if(rs.next()) {
+                new Login().setVisible(true);
+            }
+            else {
+               new Register().setVisible(true);
             }
             
-        }catch(Exception e)
-        {
-            
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-         new Login().setVisible(true);
-         Mysplash.dispose(); 
+        
+        Splash Mysplash = new Splash();
+        Mysplash.setVisible(true);
+        try {
+            for (int i = 0; i <= 100; i++) {
+                Thread.sleep(40);
+                Mysplash.Myprogress.setValue(i);
+                Mysplash.Precentage.setText(Integer.toString(i) + "%");
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        Mysplash.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -17,21 +19,21 @@ public class Category extends javax.swing.JFrame {
         SelectSeller();
     }
 
-Connection Con = null;
-Statement St = null;
-ResultSet Rs = null;
+    Connection Con = null;
+    Statement St = null;
+    ResultSet Rs = null;
 
-public void SelectSeller()
-{
-    try{
-        Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        Rs = St.executeQuery("Select *from APP.CATEGORYTBL");
-        CategoryTbl.setModel(DbUtils.resultSetToTableModel(Rs));
-    }catch (Exception e) {
+    public void SelectSeller() {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            St = Con.createStatement();
+            Rs = St.executeQuery("Select *from APP.CATEGORYTBL");
+            CategoryTbl.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
             e.printStackTrace();
+        }
     }
-}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,7 +69,7 @@ public void SelectSeller()
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel3.setText("CATEGORIES LISTS");
+        jLabel3.setText("CATEGORIES LIST");
 
         CatDesc.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         CatDesc.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +105,7 @@ public void SelectSeller()
         AddBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         AddBtn.setForeground(new java.awt.Color(255, 255, 255));
         AddBtn.setText("Add");
+        AddBtn.setFocusPainted(false);
         AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddBtnMouseClicked(evt);
@@ -113,6 +116,7 @@ public void SelectSeller()
         EditBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         EditBtn.setForeground(new java.awt.Color(255, 255, 255));
         EditBtn.setText("Edit");
+        EditBtn.setFocusPainted(false);
         EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EditBtnMouseClicked(evt);
@@ -128,6 +132,7 @@ public void SelectSeller()
         DeleteBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         DeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         DeleteBtn.setText("Delete");
+        DeleteBtn.setFocusPainted(false);
         DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteBtnMouseClicked(evt);
@@ -138,16 +143,25 @@ public void SelectSeller()
         ClearBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         ClearBtn.setForeground(new java.awt.Color(255, 255, 255));
         ClearBtn.setText("Clear");
+        ClearBtn.setFocusPainted(false);
         ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ClearBtnMouseClicked(evt);
+            }
+        });
+        ClearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearBtnActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 26)); // NOI18N
         jLabel4.setText("MANAGE CATEGORIES");
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         CategoryTbl.setBackground(new java.awt.Color(240, 240, 240));
+        CategoryTbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         CategoryTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -159,9 +173,10 @@ public void SelectSeller()
                 "CATID", "CATNAME", "CATDESC"
             }
         ));
-        CategoryTbl.setIntercellSpacing(new java.awt.Dimension(0, 0));
         CategoryTbl.setRowHeight(25);
         CategoryTbl.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        CategoryTbl.setShowGrid(true);
+        CategoryTbl.setShowHorizontalLines(false);
         CategoryTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CategoryTblMouseClicked(evt);
@@ -184,33 +199,32 @@ public void SelectSeller()
                         .addGap(18, 18, 18)
                         .addComponent(CatDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(380, 380, 380)
+                        .addGap(362, 362, 362)
                         .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(47, 47, 47)
-                                .addComponent(Catid, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel8))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(75, 75, 75)
+                                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(100, 100, 100)
+                                        .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(Catid, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(84, 84, 84)
+                                        .addComponent(jLabel8)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CatName, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(AddBtn)
-                        .addGap(151, 151, 151)
-                        .addComponent(EditBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DeleteBtn)
-                        .addGap(92, 92, 92)
-                        .addComponent(ClearBtn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CatName, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
         );
         jPanel2Layout.setVerticalGroup(
@@ -230,12 +244,11 @@ public void SelectSeller()
                         .addGap(1, 1, 1)
                         .addComponent(CatDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddBtn)
-                    .addComponent(EditBtn)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(DeleteBtn)
-                        .addComponent(ClearBtn)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DeleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ClearBtn)
+                    .addComponent(EditBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(7, 7, 7)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,25 +379,23 @@ public void SelectSeller()
 
     private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
         // TODO add your handling code here:
-        if(Catid.getText().isEmpty()||CatName.getText().isEmpty()||CatDesc.getText().isEmpty())
-        {
+        if (Catid.getText().isEmpty() || CatName.getText().isEmpty() || CatDesc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            PreparedStatement add = Con.prepareStatement("insert into APP.CATEGORYTBL values(?,?,?)");
-            add.setInt(1,Integer.valueOf(Catid.getText()));
-            add.setString(2, CatName.getText());
-            add.setString(3, CatDesc.getText());
-            int row = add.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Category Added Successfully");
-            Con.close();
-            SelectSeller();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                PreparedStatement add = Con.prepareStatement("insert into APP.CATEGORYTBL values(?,?,?)");
+                add.setInt(1, Integer.valueOf(Catid.getText()));
+                add.setString(2, CatName.getText());
+                add.setString(3, CatDesc.getText());
+                int row = add.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Category Added Successfully");
+                Con.close();
+                SelectSeller();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_AddBtnMouseClicked
 
@@ -397,7 +408,7 @@ public void SelectSeller()
 
     private void CategoryTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryTblMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel)CategoryTbl.getModel();
+        DefaultTableModel model = (DefaultTableModel) CategoryTbl.getModel();
         int MyIndex = CategoryTbl.getSelectedRow();
         Catid.setText(model.getValueAt(MyIndex, 0).toString());
         CatName.setText(model.getValueAt(MyIndex, 1).toString());
@@ -406,68 +417,71 @@ public void SelectSeller()
 
     private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
         // TODO add your handling code here:
-        if(Catid.getText().isEmpty())
+        if (Catid.getText().isEmpty())
             JOptionPane.showMessageDialog(this, "Enter the category to be deleted");
         else
-            try{
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-                String CId = Catid.getText();
-                String Query = "Delete from APP.CATEGORYTBL where CATID="+CId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                SelectSeller();
-                JOptionPane.showMessageDialog(this, "Category Deleted Successfully");
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            String CId = Catid.getText();
+            String Query = "Delete from APP.CATEGORYTBL where CATID=" + CId;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            SelectSeller();
+            JOptionPane.showMessageDialog(this, "Category Deleted Successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_DeleteBtnMouseClicked
 
     private void EditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditBtnMouseClicked
         // TODO add your handling code here:
-        if(Catid.getText().isEmpty()||CatName.getText().isEmpty()||CatDesc.getText().isEmpty())
-        {
+        if (Catid.getText().isEmpty() || CatName.getText().isEmpty() || CatDesc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            String Query = "Update APP.CATEGORYTBL set CATNAME='"+CatName.getText()+"'"+",CATDESC='"+CatDesc.getText()+"'"+"where CATID="+Catid.getText();
-            Statement Add = Con.createStatement();
-            Add.executeUpdate(Query);
-            JOptionPane.showMessageDialog(this, "Category Updated Successfully");
-            SelectSeller();
-        }catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                String Query = "Update APP.CATEGORYTBL set CATNAME='" + CatName.getText() + "'" + ",CATDESC='" + CatDesc.getText() + "'" + "where CATID=" + Catid.getText();
+                Statement Add = Con.createStatement();
+                Add.executeUpdate(Query);
+                JOptionPane.showMessageDialog(this, "Category Updated Successfully");
+                SelectSeller();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_EditBtnMouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-         new Product().setVisible(true);
+        new Product().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-         new Seller().setVisible(true);
+        new Seller().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-     new Login().setVisible(true);
-     this.dispose();    // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();    // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-         new Login().setVisible(true);
-     this.dispose();
+        new Login().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClearBtnActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

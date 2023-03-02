@@ -6,53 +6,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
-
 public class Product extends javax.swing.JFrame {
-
 
     public Product() {
         initComponents();
         SelectSeller();
         GetCat();
     }
-Connection Con = null;
-Statement St = null;
-ResultSet Rs = null;
+    Connection Con = null;
+    Statement St = null;
+    ResultSet Rs = null;
 
-public void SelectSeller()
-{
-    try{
-        Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        Rs = St.executeQuery("Select *from APP.PRODUCTTBL");
-        ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
-    }catch (Exception e) 
-    {
+    public void SelectSeller() {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            St = Con.createStatement();
+            Rs = St.executeQuery("Select *from APP.PRODUCTTBL");
+            ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
             e.printStackTrace();
-    }
-}
-private void GetCat()
-        {
-            try{
-        Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        String query = "Select *from APP.CATEGORYTBL";
-        Rs = St.executeQuery(query);
-        while(Rs.next())
-        {
-            String Mycat = Rs.getString("CATNAME");
-            CatCb.addItem(Mycat);
         }
-        
-    }catch (Exception e) {
-            e.printStackTrace();
     }
-}
-        
+
+    private void GetCat() {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            St = Con.createStatement();
+            String query = "Select *from APP.CATEGORYTBL";
+            Rs = St.executeQuery(query);
+            while (Rs.next()) {
+                String Mycat = Rs.getString("CATNAME");
+                CatCb.addItem(Mycat);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,7 +93,7 @@ private void GetCat()
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel3.setText("PRODUCT LISTS");
+        jLabel3.setText("PRODUCTS LIST");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 285, -1, 50));
 
         ProdName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -162,28 +161,32 @@ private void GetCat()
         AddBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         AddBtn.setForeground(new java.awt.Color(255, 255, 255));
         AddBtn.setText("Add");
+        AddBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        AddBtn.setFocusPainted(false);
         AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(AddBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 229, -1, -1));
+        jPanel2.add(AddBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 229, 120, 40));
 
         UpdateBtn.setBackground(new java.awt.Color(0, 0, 0));
         UpdateBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         UpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
         UpdateBtn.setText("Edit");
+        UpdateBtn.setFocusPainted(false);
         UpdateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UpdateBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(UpdateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 229, -1, -1));
+        jPanel2.add(UpdateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 120, 40));
 
         DeleteBtn.setBackground(new java.awt.Color(0, 0, 0));
         DeleteBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         DeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         DeleteBtn.setText("Delete");
+        DeleteBtn.setFocusPainted(false);
         DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteBtnMouseClicked(evt);
@@ -194,24 +197,28 @@ private void GetCat()
                 DeleteBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(DeleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 229, -1, -1));
+        jPanel2.add(DeleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 229, 140, 40));
 
         ClearBtn.setBackground(new java.awt.Color(0, 0, 0));
         ClearBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         ClearBtn.setForeground(new java.awt.Color(255, 255, 255));
         ClearBtn.setText("Clear");
+        ClearBtn.setFocusPainted(false);
         ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ClearBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(ClearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(789, 229, -1, -1));
+        jPanel2.add(ClearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(745, 230, 110, 40));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 26)); // NOI18N
         jLabel4.setText("MANAGE PRODUCTS");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 0, -1, 50));
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         ProductTable.setBackground(new java.awt.Color(240, 240, 240));
+        ProductTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -223,8 +230,12 @@ private void GetCat()
                 "ID", "NAME", "QUANTITY", "PRICE", "CATEGORY"
             }
         ));
+        ProductTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ProductTable.setRowHeight(25);
         ProductTable.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        ProductTable.setShowGrid(true);
+        ProductTable.setShowHorizontalLines(false);
+        ProductTable.setVerifyInputWhenFocusTarget(false);
         ProductTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ProductTableMouseClicked(evt);
@@ -297,7 +308,7 @@ private void GetCat()
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
 
         pack();
@@ -329,57 +340,55 @@ private void GetCat()
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
-        if(ProdId.getText().isEmpty()||ProdName.getText().isEmpty()||ProdPrice.getText().isEmpty()||ProdQty.getText().isEmpty())
-        {
+        if (ProdId.getText().isEmpty() || ProdName.getText().isEmpty() || ProdPrice.getText().isEmpty() || ProdQty.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            PreparedStatement add = Con.prepareStatement("insert into APP.PRODUCTTBL values(?,?,?,?,?)");
-            add.setInt(1,Integer.valueOf(ProdId.getText()));
-            add.setString(2, ProdName.getText());
-            add.setInt(3,Integer.valueOf(ProdQty.getText()));
-            add.setInt(4,Integer.valueOf(ProdPrice.getText()));
-            add.setString(5,CatCb.getSelectedItem().toString());
-            int row = add.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Product Added Successfully");
-            Con.close();
-            SelectSeller();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                PreparedStatement add = Con.prepareStatement("insert into APP.PRODUCTTBL values(?,?,?,?,?)");
+                add.setInt(1, Integer.valueOf(ProdId.getText()));
+                add.setString(2, ProdName.getText());
+                add.setInt(3, Integer.valueOf(ProdQty.getText()));
+                add.setDouble(4, Double.valueOf(ProdPrice.getText()));
+                add.setString(5, CatCb.getSelectedItem().toString());
+                int row = add.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Product Added Successfully");
+                Con.close();
+                SelectSeller();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_AddBtnMouseClicked
 
     private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
-       ProdId.setText("");
-       ProdName.setText("");
-       ProdPrice.setText("");
-       ProdQty.setText("");
+        ProdId.setText("");
+        ProdName.setText("");
+        ProdPrice.setText("");
+        ProdQty.setText("");
     }//GEN-LAST:event_ClearBtnMouseClicked
 
     private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
-         if(ProdId.getText().isEmpty())
+        if (ProdId.getText().isEmpty())
             JOptionPane.showMessageDialog(this, "Enter the product to be deleted");
         else
-            try{
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-                String PrId = ProdId.getText();
-                String Query = "Delete from APP.PRODUCTTBL where PRODID="+PrId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                SelectSeller();
-                JOptionPane.showMessageDialog(this, "Product Deleted Successfully");
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            String PrId = ProdId.getText();
+            String Query = "Delete from APP.PRODUCTTBL where PRODID=" + PrId;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            SelectSeller();
+            JOptionPane.showMessageDialog(this, "Product Deleted Successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_DeleteBtnMouseClicked
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
-        DefaultTableModel model = (DefaultTableModel)ProductTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
         int MyIndex = ProductTable.getSelectedRow();
         ProdId.setText(model.getValueAt(MyIndex, 0).toString());
         ProdName.setText(model.getValueAt(MyIndex, 1).toString());
@@ -388,49 +397,48 @@ private void GetCat()
     }//GEN-LAST:event_ProductTableMouseClicked
 
     private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
-        
-        if(ProdId.getText().isEmpty()||ProdName.getText().isEmpty()||ProdQty.getText().isEmpty()||ProdPrice.getText().isEmpty())
-        {
+
+        if (ProdId.getText().isEmpty() || ProdName.getText().isEmpty() || ProdQty.getText().isEmpty() || ProdPrice.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            String Query = "Update APP.PRODUCTTBL set PRODNAME='"+ProdName.getText()+"'"+",PRODQTY="+ProdQty.getText()+""+",PRODPRICE="+ProdPrice.getText()+""+",PRODCAT='"+CatCb.getSelectedItem().toString()+"'"+"where PRODID="+ProdId.getText();
-            Statement Add = Con.createStatement();
-            Add.executeUpdate(Query);
-            SelectSeller();
-            JOptionPane.showMessageDialog(this, "Product Updated Successfully");
-        }catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                String Query = "Update APP.PRODUCTTBL set PRODNAME='" + ProdName.getText() + "'" + ",PRODQTY=" + ProdQty.getText() + "" + ",PRODPRICE=" + ProdPrice.getText() + "" + ",PRODCAT='" + CatCb.getSelectedItem().toString() + "'" + "where PRODID=" + ProdId.getText();
+                Statement Add = Con.createStatement();
+                Add.executeUpdate(Query);
+                SelectSeller();
+                JOptionPane.showMessageDialog(this, "Product Updated Successfully");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_UpdateBtnMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-       new Seller().setVisible(true);
-       this.dispose();
+        new Seller().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-         new Category().setVisible(true);
-         this.dispose();
+        new Category().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         new Login().setVisible(true);
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         new Login().setVisible(true);
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     public static void main(String args[]) {

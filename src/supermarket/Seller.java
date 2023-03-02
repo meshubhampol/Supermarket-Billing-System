@@ -1,36 +1,40 @@
 package supermarket;
 
+import java.awt.print.PrinterException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
 public class Seller extends javax.swing.JFrame {
 
-public Seller() {
+    public Seller() {
         initComponents();
         SelectSeller();
     }
-Connection Con = null;
-Statement St = null;
-ResultSet Rs = null;
+    Connection Con = null;
+    Statement St = null;
+    ResultSet Rs = null;
 
-public void SelectSeller()
-{
-    try{
-        Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-        St = Con.createStatement();
-        Rs = St.executeQuery("Select *from APP.SELLERTBL");
-        SellerTable.setModel(DbUtils.resultSetToTableModel(Rs));
-    }catch (Exception e) {
+    public void SelectSeller() {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            St = Con.createStatement();
+            Rs = St.executeQuery("Select *from APP.SELLERTBL");
+            SellerTable.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
             e.printStackTrace();
+        }
     }
-}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -54,6 +58,8 @@ public void SelectSeller()
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         SellerTable = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        mobile = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -66,7 +72,7 @@ public void SelectSeller()
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabel3.setText("SELLERS LISTS");
+        jLabel3.setText("SELLERS LIST");
 
         SellName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         SellName.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +119,7 @@ public void SelectSeller()
         AddBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         AddBtn.setForeground(new java.awt.Color(255, 255, 255));
         AddBtn.setText("Add");
+        AddBtn.setFocusPainted(false);
         AddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddBtnMouseClicked(evt);
@@ -128,6 +135,7 @@ public void SelectSeller()
         EditBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         EditBtn.setForeground(new java.awt.Color(255, 255, 255));
         EditBtn.setText("Edit");
+        EditBtn.setFocusPainted(false);
         EditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EditBtnMouseClicked(evt);
@@ -138,6 +146,7 @@ public void SelectSeller()
         DeleteBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         DeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         DeleteBtn.setText("Delete");
+        DeleteBtn.setFocusPainted(false);
         DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteBtnMouseClicked(evt);
@@ -153,6 +162,7 @@ public void SelectSeller()
         ClearBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         ClearBtn.setForeground(new java.awt.Color(255, 255, 255));
         ClearBtn.setText("Clear");
+        ClearBtn.setFocusPainted(false);
         ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ClearBtnMouseClicked(evt);
@@ -167,23 +177,28 @@ public void SelectSeller()
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 26)); // NOI18N
         jLabel4.setText("MANAGE SELLERS");
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         SellerTable.setAutoCreateRowSorter(true);
+        SellerTable.setBackground(new java.awt.Color(240, 240, 240));
         SellerTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         SellerTable.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         SellerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "SELID", "SELNAME", "SELPASS", "SELGENDER"
+                "ID", "NAME", "PASSWORD", "GENDER", "MOBILE NO"
             }
         ));
         SellerTable.setGridColor(new java.awt.Color(0, 0, 0));
         SellerTable.setRowHeight(25);
         SellerTable.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        SellerTable.setShowGrid(true);
+        SellerTable.setShowHorizontalLines(false);
         SellerTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SellerTableMouseClicked(evt);
@@ -191,49 +206,69 @@ public void SelectSeller()
         });
         jScrollPane1.setViewportView(SellerTable);
 
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel10.setText("MOBILE");
+
+        mobile.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        mobile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mobileActionPerformed(evt);
+            }
+        });
+        mobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mobileKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(398, 398, 398))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 864, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(63, 63, 63)
-                                    .addComponent(SellId, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(388, 388, 388)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(AddBtn)
+                        .addGap(151, 151, 151)
+                        .addComponent(EditBtn)
+                        .addGap(123, 123, 123)
+                        .addComponent(DeleteBtn)
+                        .addGap(86, 86, 86)
+                        .addComponent(ClearBtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
+                                .addComponent(mobile))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(62, 62, 62)
-                                    .addComponent(SellName, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(61, 61, 61)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel7))
-                            .addGap(29, 29, 29)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(GenderCb, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SellPass, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(388, 388, 388)
-                            .addComponent(jLabel4))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(125, 125, 125)
-                            .addComponent(AddBtn)
-                            .addGap(151, 151, 151)
-                            .addComponent(EditBtn)
-                            .addGap(123, 123, 123)
-                            .addComponent(DeleteBtn)
-                            .addGap(86, 86, 86)
-                            .addComponent(ClearBtn))))
-                .addGap(71, 71, 71))
+                                    .addComponent(jLabel6))
+                                .addGap(61, 61, 61)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SellId, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SellName, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GenderCb, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SellPass, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 864, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(jLabel3)))
+                .addGap(139, 139, 139))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,33 +277,36 @@ public void SelectSeller()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SellId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SellId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SellPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SellName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GenderCb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(72, 72, 72)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SellName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GenderCb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(AddBtn)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(EditBtn)
                         .addComponent(DeleteBtn)
                         .addComponent(ClearBtn)))
-                .addGap(3, 3, 3)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -342,7 +380,7 @@ public void SelectSeller()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -386,55 +424,59 @@ public void SelectSeller()
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
         // TODO add your handling code here:
-        if(SellId.getText().isEmpty())
+        if (SellId.getText().isEmpty())
             JOptionPane.showMessageDialog(this, "Enter the seller to be deleted");
         else
-            try{
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-                String SId = SellId.getText();
-                String Query = "Delete from APP.SELLERTBL where SELID="+SId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                SelectSeller();
-                JOptionPane.showMessageDialog(this, "Seller Deleted Successfully");
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            String SId = SellId.getText();
+            String Query = "Delete from APP.SELLERTBL where SELLID=" + SId;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            SelectSeller();
+            JOptionPane.showMessageDialog(this, "Seller Deleted Successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
         // TODO add your handling code here:
-        if(SellId.getText().isEmpty()||SellName.getText().isEmpty()||SellPass.getText().isEmpty())
-        {
+        if (SellId.getText().trim().isEmpty() || SellName.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
         }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            PreparedStatement add = Con.prepareStatement("insert into APP.SELLERTBL values(?,?,?,?)");
-            add.setInt(1,Integer.valueOf(SellId.getText()));
-            add.setString(2, SellName.getText());
-            add.setString(3, SellPass.getText());
-            add.setString(4, GenderCb.getSelectedItem().toString());
-            int row = add.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Seller Added Successfully");
-            Con.close();
-            SelectSeller();
-        }catch (Exception e) {
-            e.printStackTrace();
+        else if(SellPass.getText().trim().length()<4) {
+            JOptionPane.showMessageDialog(this, "Passowrd should contain at least 4 characters!");
         }
+        else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                PreparedStatement add = Con.prepareStatement("insert into APP.SELLERTBL values(?,?,?,?,?)");
+                add.setInt(1, Integer.parseInt(SellId.getText()));
+                add.setString(2, SellName.getText());
+                add.setString(3, SellPass.getText());
+                add.setString(4, GenderCb.getSelectedItem().toString());
+                add.setLong(5, Long.parseLong(mobile.getText()));
+                add.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Seller Added Successfully");
+                Con.close();
+                SelectSeller();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_AddBtnMouseClicked
 
     private void SellerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SellerTableMouseClicked
-        DefaultTableModel model = (DefaultTableModel)SellerTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) SellerTable.getModel();
         int MyIndex = SellerTable.getSelectedRow();
         SellId.setText(model.getValueAt(MyIndex, 0).toString());
         SellName.setText(model.getValueAt(MyIndex, 1).toString());
         SellPass.setText(model.getValueAt(MyIndex, 2).toString());
-        
+        mobile.setText(model.getValueAt(MyIndex, 4).toString());
+
     }//GEN-LAST:event_SellerTableMouseClicked
 
     private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
@@ -442,47 +484,47 @@ public void SelectSeller()
         SellId.setText("");
         SellName.setText("");
         SellPass.setText("");
+        mobile.setText("");
     }//GEN-LAST:event_ClearBtnMouseClicked
 
     private void EditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditBtnMouseClicked
-       
-        if(SellId.getText().isEmpty()||SellName.getText().isEmpty()||SellPass.getText().isEmpty())
-        {
+
+        if (SellId.getText().isEmpty() || SellName.getText().isEmpty() || SellPass.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else
-        {
-        try{
-            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-            String Query = "Update APP.SELLERTBL set SELNAME='"+SellName.getText()+"'"+",SELPASS='"+SellPass.getText()+"'"+",SELGENDER='"+GenderCb.getSelectedItem().toString()+"'"+"where SELID="+SellId.getText();
-            Statement Add = Con.createStatement();
-            Add.executeUpdate(Query);
-            SelectSeller();
-            JOptionPane.showMessageDialog(this, "Seller Updated Successfully");
-        }catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+                String Query = "Update APP.SELLERTBL set SELLNAME='" + SellName.getText() + "'" + ",SELLPASS='" + SellPass.getText() + "'" + ",SELLGENDER='" + GenderCb.getSelectedItem().toString() + "' ,mobileno= "+Long.parseLong(mobile.getText()) + "where SELLID=" + SellId.getText();
+                Statement Add = Con.createStatement();
+                Add.executeUpdate(Query);
+                SelectSeller();
+                JOptionPane.showMessageDialog(this, "Seller Updated Successfully");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Seller.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_EditBtnMouseClicked
 
     private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
         // TODO add your handling code here:
-         if(SellId.getText().isEmpty())
+        if (SellId.getText().isEmpty())
             JOptionPane.showMessageDialog(this, "Enter the seller to be deleted");
         else
-            try{
-                Con = DriverManager.getConnection("jdbc:derby://localhost:1527/SuperMarketdb","User1","1234");
-                String SId = SellId.getText();
-                String Query = "Delete from APP.SELLERTBL where SELLID="+SId;
-                Statement Add = Con.createStatement();
-                Add.executeUpdate(Query);
-                SelectSeller();
-                JOptionPane.showMessageDialog(this, "Seller Deleted Successfully");
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
+            String SId = SellId.getText();
+            String Query = "Delete from APP.SELLERTBL where SELLID=" + SId;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            SelectSeller();
+            JOptionPane.showMessageDialog(this, "Seller Deleted Successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_DeleteBtnMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
@@ -495,9 +537,30 @@ public void SelectSeller()
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-       new Category().setVisible(true);
-        this.dispose(); 
+        new Category().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void mobileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mobileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mobileActionPerformed
+
+    private void mobileKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mobileKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' && mobile.getText().length() < 10 || evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            mobile.setEditable(true);
+        } else if (mobile.getText().length() == 10) {
+            mobile.setEditable(false);
+            JOptionPane.showMessageDialog(this, "only 10 Digits Allowed!");
+            if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) {
+                mobile.setEditable(true);
+            }
+        } else {
+            mobile.setEditable(false);
+            JOptionPane.showMessageDialog(this, "Only Digits between (0-9) Allowed!");
+            mobile.setEditable(true);
+        }
+    }//GEN-LAST:event_mobileKeyPressed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -518,6 +581,7 @@ public void SelectSeller()
     private javax.swing.JTextField SellPass;
     private javax.swing.JTable SellerTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -531,5 +595,6 @@ public void SelectSeller()
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField mobile;
     // End of variables declaration//GEN-END:variables
 }
