@@ -1,25 +1,34 @@
 # Supermarket Billing System
 
 
-## Project Overview
-The system includes a point of sale system which deals with the Sellers, Admins and store inventory management.
-* Admin can add Sellers, Categories and Products under categories
-* Seller can add products to Cart as per Customer's requests
-* A Bill is printed out as PDF
-* A Database is maintained for all Sellers, Categories and Products
+## Features :
+* Secure Admin Registration Using 16 Digit Key Validation
+* Role Based Login and Access
+* Reset Password Facility for both Admin and Seller Through OTP Validation sent to mobile number
+* Category Wise Product Differentiation
+* Convinient Product Search Facility
+* Facility to delete last added item from bill if needed
+* Real-time Product Wise stock management
+* Handy Add,Edit and Delete Options for managing Sellers,Products and it's stock, Categories etc
+* Database managed for Admin, Sellers, Products, Categories
+* Bill Creation in PDF Format
 
-## Tools
+## TECHNOLOGY STACK :
 ### Java
+### Apache Derby RDBMS
+### SQL
+### FAST2SMS API (GET) 
 ### Java Swing
 ### Java Awt
-### Apache Derby
-### SQL
 ### Netbeans IDE
 
 
-## Screenshots
+## Screenshots :
 ### Splash
-![image](https://user-images.githubusercontent.com/89059194/143206110-abf10f19-9d97-4c04-971f-6f47f4508403.png)
+![image]()
+
+### Registration
+![image]()
 
 ### Login
 ![image](https://user-images.githubusercontent.com/89059194/143206380-f2731736-dc1d-4f0d-8b84-f388f2038a7b.png)
@@ -27,7 +36,7 @@ The system includes a point of sale system which deals with the Sellers, Admins 
 ### Seller
 ![image](https://user-images.githubusercontent.com/89059194/143207097-e6785dd9-39e3-43c5-b1f6-c926197b650c.png)
 
-### Categories
+### Categories Scrren
 ![image](https://user-images.githubusercontent.com/89059194/143207126-764e6e22-765d-4c59-bc35-993687d9025a.png)
 
 ### Products
