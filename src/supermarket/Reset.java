@@ -280,8 +280,8 @@ public class Reset extends javax.swing.JFrame {
     public void sendOtp(String message,String phone,int otp) {
         try {
 //            message = URLEncoder.encode(message, "UTF-8");
-            String apiKey = "Z6iKyOtfCLR1eJYoWMuzmNnkIHDE0vrx5pVSlcQjAw3P9q7Bhsid9zbX1hPeAFCvactqTuyZR7Swmf3K";
-            String otpUrl = " https://www.fast2sms.com/dev/bulkV2?authorization=Z6iKyOtfCLR1eJYoWMuzmNnkIHDE0vrx5pVSlcQjAw3P9q7Bhsid9zbX1hPeAFCvactqTuyZR7Swmf3K&route=v3&sender_id=FTWSMS&message="+otp+"&language=english&flash=0&numbers="+phone;
+            String apiKey = "";
+            String otpUrl = "";
             System.out.println(otpUrl);
             URL url = new URL(otpUrl);
             HttpsURLConnection net = (HttpsURLConnection)url.openConnection();
