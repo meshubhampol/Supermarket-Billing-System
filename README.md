@@ -24,24 +24,32 @@
 
 
 ## Screenshots :
-### Splash
-![image]()
+### Laoding Screen
+![loading](https://user-images.githubusercontent.com/116621224/222974641-51b87c39-fe2e-4fc6-ab64-92206b49694c.png)
 
 ### Registration
-![image]()
+![register](https://user-images.githubusercontent.com/116621224/222974004-26efa117-8170-454d-ae74-b592eb29ae00.png)
 
 ### Login
-![image](https://user-images.githubusercontent.com/89059194/143206380-f2731736-dc1d-4f0d-8b84-f388f2038a7b.png)
+![login](https://user-images.githubusercontent.com/116621224/222974326-f578b9a8-2630-4778-bd3d-9f5be9f2faf9.png)
 
-### Seller
-![image](https://user-images.githubusercontent.com/89059194/143207097-e6785dd9-39e3-43c5-b1f6-c926197b650c.png)
+### Reset Password
+![reset](https://user-images.githubusercontent.com/116621224/222974361-c0736179-d7c5-45f0-86f8-937c0ba17e9f.png)
 
-### Categories Scrren
-![image](https://user-images.githubusercontent.com/89059194/143207126-764e6e22-765d-4c59-bc35-993687d9025a.png)
+### Update Password
+![update](https://user-images.githubusercontent.com/116621224/222974391-a1277d76-36d7-4a75-996d-0ad076414116.png)
+
+### Sellers
+![sellers](https://user-images.githubusercontent.com/116621224/222974371-58ade498-4b35-443e-9471-227ccbb8228a.png)
+
+### Categories
+![categories](https://user-images.githubusercontent.com/116621224/222974318-fa8f03a9-d0d3-4341-926e-1e2bf8fe1913.png)
 
 ### Products
-![image](https://user-images.githubusercontent.com/89059194/143207177-e7198d23-9b24-4f4b-b9f3-83322380ea5e.png)
+![product](https://user-images.githubusercontent.com/116621224/222974353-2625b8e9-68b7-467d-86c3-292da1d95d5f.png)
 
 ### Seller point
-![image](https://user-images.githubusercontent.com/89059194/143207426-2aa5f9f9-7b73-434a-8924-9bb48d84b31e.png)
+![selling-point](https://user-images.githubusercontent.com/116621224/222974382-d872b3c5-249f-48d6-ae46-d2d3e38a5160.png)
 
+### Print Screen
+![print](https://user-images.githubusercontent.com/116621224/222974336-d92ae32f-41c6-4179-a588-72b78a6d1cdf.png)
