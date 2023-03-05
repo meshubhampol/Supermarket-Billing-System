@@ -64,6 +64,7 @@ public class Selling extends javax.swing.JFrame {
         BillTxt = new javax.swing.JTextArea();
         Grdtotallbl1 = new javax.swing.JLabel();
         find = new javax.swing.JTextField();
+        refresh = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -134,6 +135,7 @@ public class Selling extends javax.swing.JFrame {
         FilterBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         FilterBtn.setForeground(new java.awt.Color(255, 255, 255));
         FilterBtn.setText("Filter");
+        FilterBtn.setFocusPainted(false);
         FilterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 FilterBtnMouseClicked(evt);
@@ -144,7 +146,7 @@ public class Selling extends javax.swing.JFrame {
                 FilterBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(FilterBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 110, -1, -1));
+        jPanel2.add(FilterBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, -1, -1));
 
         ClearBtn.setBackground(new java.awt.Color(0, 0, 0));
         ClearBtn.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -281,6 +283,23 @@ public class Selling extends javax.swing.JFrame {
         });
         jPanel2.add(find, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 30));
 
+        refresh.setBackground(new java.awt.Color(0, 0, 0));
+        refresh.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        refresh.setForeground(new java.awt.Color(255, 255, 255));
+        refresh.setText("Refresh");
+        refresh.setFocusPainted(false);
+        refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshMouseClicked(evt);
+            }
+        });
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+        jPanel2.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, -1, -1));
+
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("X");
@@ -356,7 +375,7 @@ public class Selling extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void SelectSeller() {
+    private void SelectSeller() {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Con = DriverManager.getConnection("jdbc:derby:C:\\Users\\mahes\\Documents\\Derby\\Database\\SuperMarketdb", "User1", "1234");
@@ -613,6 +632,16 @@ public class Selling extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_findActionPerformed
 
+    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        // TODO add your handling code here:
+        CatCb.setSelectedItem("All");
+        SelectSeller();
+    }//GEN-LAST:event_refreshMouseClicked
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refreshActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -670,6 +699,7 @@ public class Selling extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton refresh;
     private javax.swing.JButton search;
     // End of variables declaration//GEN-END:variables
 
